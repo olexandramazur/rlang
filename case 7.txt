@@ -1,0 +1,78 @@
+# #example_1
+
+# rawdata <- read.csv("D:\\STUDY\\R\\r8.csv")
+# print(head(rawdata))
+# print(tail(rawdata))
+
+#example_2
+
+# rawdata <- read.csv("D:\\STUDY\\R\\r8.csv")
+# print(summary(rawdata))
+# print(str(rawdata))
+
+##example_3
+# test of standartization
+
+# x <- 1:1000
+# x.sc <- (x-mean(x))/sd(x)
+# print(summary(x.sc))
+
+# #data standartization with scale() on data frame. scale() is basicaly used for standartization of datasets so it's possible to compare data that is not measured in the same way
+# rawdata <- read.csv("D:\\STUDY\\R\\r8.csv")
+# rawdata <- data.frame(scale(rawdata[, 1:9]))
+# print(summary(rawdata))  #summary on standartized raw data
+
+# #example_4
+
+# #building a plot with R library corrplot
+# rawdata <- read.csv("D:\\STUDY\\R\\r8.csv")
+# rawdata[, 1:9] <- data.frame(scale(rawdata[, 1:9]))
+# library(corrplot)
+# corrplot(cor(rawdata[, 1:9]), order = "hclust")
+# #Answer next questions:
+# #1. What parameters are used to execute grouping?
+# #2. Why do you think this very parameters were used for grouping?
+# #3. In which way do these results can be used by the client?
+
+# #example_5
+
+#Let's use aggregate() function to find the mean of every feature by brands
+# rawdata <- read.csv("D:\\STUDY\\R\\r8.csv")
+# rawdata.sc <- rawdata
+# rawdata.sc[, 1:9] <- data.frame(scale(rawdata[, 1:9]))
+# brand.mean <- aggregate(. ~ brand, data=rawdata.sc, mean)
+# print(brand.mean)
+# rownames(brand.mean) <- brand.mean[, 1] #at this point we tell the program to use values from 'brand' column as row names
+# brand.mean <- brand.mean [, -1]
+# print(brand.mean)
+
+
+# # example_6
+
+# #example of building a plot based on 'NMK'
+# rawdata <- read.csv("D:\\STUDY\\R\\r8.csv")
+# rawdata.sc <- rawdata
+# rawdata.sc[, 1:9] <- data.frame(scale(rawdata[, 1:9]))
+# brand.mean <- aggregate(. ~ brand, data=rawdata.sc, mean)
+# rownames(brand.mean) <- brand.mean[, 1]
+# brand.mean <- brand.mean[, -1]
+# library(gplots)
+# library(RColorBrewer)
+# heatmap.2(as.matrix(brand.mean), col = brewer.pal(9, "GnBu"), trace="none", key=FALSE, dend="none", main="\n\n\n\n\nBrand attributes")
+
+# # We should answer a question: How we can use the results that we've recieved to solve the marketing management issue our customer faced  
+
+# example of our modified plot
+
+# #example of building a plot based on 'NMK'
+rawdata <- read.csv("D:\\STUDY\\R\\r8.csv")
+rawdata.sc <- rawdata
+rawdata.sc[, 1:9] <- data.frame(scale(rawdata[, 1:9]))
+brand.mean <- aggregate(. ~ brand, data=rawdata.sc, mean)
+rownames(brand.mean) <- brand.mean[, 1]
+brand.mean <- brand.mean[, -1]
+library(gplots)
+library(RColorBrewer)
+heatmap.2(as.matrix(brand.mean),srtCol = 0, col = brewer.pal(9, "YlOrRd"), 
+trace="none", key=TRUE, margins = ,dend="none", main="\n\n\n\n\nBrand attributes", ylab = "Brands")
+angleAxis(3, rownames(brand.mean), side = 1)
