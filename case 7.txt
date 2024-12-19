@@ -1,3 +1,5 @@
+#Oleksandra Mazur, Zinchuk Ivan
+
 # #example_1
 
 # rawdata <- read.csv("D:\\STUDY\\R\\r8.csv")
